@@ -1,7 +1,7 @@
 #include <Servo.h>
 
 const int QRD1114_PIN = A0;
-const int sampleRate = 150;
+const int sampleRate = 25;
 const int servoRestTime = 300;
 const float threshold = 0.03;
 const int bufSize = 10;
@@ -24,11 +24,11 @@ void loop() {
 // Read in the ADC and convert it to a voltage:
   int proximityADC = analogRead(QRD1114_PIN);
   float proximityV = (float)proximityADC * 5.0 / 1023.0;
-  Serial.println(proximityV);
+//  Serial.println(proximityV);
   
-  float maxVoltage = bufMin();
-  if (maxVoltage - proximityV > threshold) {
-    servo.write(45);
+  float minVoltage = bufMin();
+  if (minVoltage - proximityV > threshold) {
+    servo.write(55);
     delay(servoRestTime);
     servo.write(0);
   }
