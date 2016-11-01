@@ -2,7 +2,7 @@
 
 // Constants
 const int QRD1114_PIN = A0;
-const int sampleRate = 25;
+const int msToWait = 25;
 const int servoRestTime = 300;
 const float threshold = 0.03;
 const int bufSize = 10;
@@ -27,13 +27,13 @@ void setup() {
 void loop() {
   // Read in the ADC and convert it to a voltage:
   int proximityADC = analogRead(QRD1114_PIN);
-  float proximityV = (float)proximityADC * 5.0 / 1023.0;
+  float observedVoltage = (float)proximityADC * 5.0 / 1023.0;
   
   // Only trigger a servo movement if the
   // observed voltage is more than threshold
   // less than the minimum recent voltage
   float minVoltage = bufMin();
-  if (minVoltage - proximityV > threshold) {
+  if (minVoltage - observedVoltage > threshold) {
     servo.write(55);
     Serial.print("\rDodged ");
     Serial.print(dodgeCounter);
@@ -42,8 +42,8 @@ void loop() {
     servo.write(0);
   }
   // Write value into the circular buffer
-  bufWrite(proximityV);
-  delay(sampleRate);
+  bufWrite(observedVoltage);
+  delay(msToWait);
 }
 
 /**
