@@ -29,4 +29,4 @@ Beating this challenge grants the player an item that unlocks the full powers of
 
 ## Notes
 Project inspired by this [video](https://www.youtube.com/watch?v=2HbIHVoTY2M).
-Thanks to [Manish](https://github.com/redwall9) for general EE consulting.
+Thanks to [redwall9](https://github.com/redwall9) for general EE consulting.
